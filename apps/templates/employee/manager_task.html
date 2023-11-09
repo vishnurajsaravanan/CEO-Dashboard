@@ -1,0 +1,127 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Attach file {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+    /* Custom CSS for centering and white box */
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .white-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .text-field {
+    border: 1px solid #312c2c; /* Add a border with a light gray color */
+    padding: 5px; /* Add some padding to improve appearance */
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+    <h1 style="text-align: center;">Tasks</h1>
+</div>
+
+<form action="/assign_tasks" method="get">
+    <div class="container-fluid py-5">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-12">
+                <div class="white-box">
+                    <div><h4>Welcome, {{ current_user.username }}</h4></div>
+                        <div class="row">
+                            <table style="padding: 20px;">
+                                <tr>
+                                    <th>
+                                        <h6>Title</h6>
+                                    </th>
+                                    <th>
+                                        <h6>Status</h6>
+                                    </th>
+                                    <th>
+                                        Completed?
+                                    </th>
+                                </tr>
+                                {% for i in task %}
+                                    {% if current_user.username == i.username %}
+                                <tr>
+                                    <td>
+                                        {{ i.task }}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="{{i.username}}" name="task_box">
+                                        <label for="myCheckbox">Completed</label>
+                                    </td>
+                                    <td>
+                                        <div class="white-box" style="border: 2px solid yellow;">
+                                            <div id="result" style="text-align: center;"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    // Get a reference to the checkbox element
+    var checkbox = document.getElementById("{{current_user.username }}");
+    // Get a reference to the result div
+    var resultDiv = document.getElementById("result");
+
+
+    // Function to update the message based on the checkbox state
+    function updateMessage() {
+        // Check if the checkbox is checked
+            if (checkbox.checked) {
+                // If checked, display a message
+                resultDiv.style.color = "green";
+                resultDiv.textContent = "Task is completed!";
+            } else {
+                // If not checked, display a different message
+                resultDiv.style.color = "red";
+                resultDiv.textContent = "Task is pending...";
+            }
+    }
+
+    // Add an event listener to the checkbox for the "change" event
+    checkbox.addEventListener("change", function () {
+        // Update the message and save the checkbox state to local storage
+        updateMessage();
+        localStorage.setItem("checkboxState", checkbox.checked);
+    });
+
+    // Check if there is a saved checkbox state in local storage
+    var savedCheckboxState = localStorage.getItem("checkboxState");
+
+    // If a saved state exists, set the checkbox accordingly and update the message
+    if (savedCheckboxState !== null) {
+        checkbox.checked = savedCheckboxState === "true";
+        updateMessage();
+    }
+</script>
+{% endblock javascripts %}

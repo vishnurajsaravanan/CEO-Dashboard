@@ -1,0 +1,542 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% from "_formhelpers.html" import render_field %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js'></script>
+<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js'></script>
+<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'>
+
+<style>
+
+.card-body {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.error
+{
+  color: red;
+  size: 80%
+}
+.hidden
+{
+  display:none;
+}
+
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
+              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('/static/assets/img/illustrations/illustration-signup.jpg'); background-size: cover;">
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+              <div class="card card-plain">
+                <div class="card-header">
+                  <h4 class="font-weight-bolder">
+                    Growth Dashboard
+                  </h4>
+                  <p class="mb-0">
+                    <!-- {% if msg %}
+                      <span class="text-danger">{{ msg | safe }}</span>
+                    {% else %}
+                      Enter your email and password to register
+                    {% endif %} -->
+                  </p>
+                </div>
+
+                {% if success %}
+
+                  <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                    <p class="mb-2 text-sm mx-auto text-center">
+                      <a  href="{{ url_for('authentication_blueprint.login') }}"
+                          class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign IN</a>
+                    </p>
+                  </div>
+
+                {% else %}
+
+                  <div class="card-body">
+                    <form role="form" method="post" action="" id="myform" onload="validation()">
+
+                      {{ form.hidden_tag() }}
+
+                      <div class="form-group mb-4">
+                        <label for="username">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <span class="fas fa-user-circle"></span>
+                            </span>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Username" onchange="validateUsername();" required>
+                            <div class="invalid-feedback" id="usernameError">Username is required.</div>
+                        </div>
+                    </div>
+                      
+                    <div class="form-group mb-4">
+                      <label for="phone">Phone Number</label>
+                      <input type="numeric" class="form-control" id="phone" name="phone" placeholder="Phone" oninput="validatePhone();" maxlength="10" required>
+                      <div class="invalid-feedback" id="phoneError">Phone Number is Required.</div>
+                  </div>
+                      <!-- <div class="input-group-text input-group-outline mb-3" id="phone_space">
+                    {{render_field(form.phone, class="form-control", type="numeric", placeholder="Phone", id="phone", onchange="validatePhone()")}}
+                        <div class="invalid-feedback">Please enter a valid phone number.</div>
+                      </div> -->
+
+                      <div class="form-group mb-4">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="16" height="16"  viewBox="0 0 256 256" xml:space="preserve">
+
+
+                                    <defs>
+                                    </defs>
+                                    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                                        <path d="M 80.89 78.772 H 9.11 c -5.023 0 -9.11 -4.087 -9.11 -9.11 V 20.338 c 0 -5.023 4.087 -9.11 9.11 -9.11 h 71.78 c 5.023 0 9.11 4.087 9.11 9.11 v 49.324 C 90 74.686 85.913 78.772 80.89 78.772 z M 9.11 17.228 c -1.715 0 -3.11 1.396 -3.11 3.11 v 49.324 c 0 1.715 1.395 3.11 3.11 3.11 h 71.78 c 1.715 0 3.11 -1.396 3.11 -3.11 V 20.338 c 0 -1.715 -1.396 -3.11 -3.11 -3.11 H 9.11 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                        <path d="M 45 55.427 c -5.408 0 -10.599 -2.292 -14.242 -6.288 L 2.493 18.125 l 4.435 -4.042 l 28.265 31.013 c 2.545 2.792 6.028 4.331 9.807 4.331 c 3.779 0 7.262 -1.538 9.808 -4.331 l 28.266 -31.013 l 4.434 4.042 L 59.241 49.138 C 55.599 53.135 50.408 55.427 45 55.427 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                        <rect x="-0.96" y="57.16" rx="0" ry="0" width="38.98" height="6" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(0.7053 -0.7089 0.7089 0.7053 -37.1881 30.8639) "/>
+                                        <rect x="68.47" y="40.67" rx="0" ry="0" width="6" height="38.98" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(0.709 -0.7053 0.7053 0.709 -21.628 67.9146) "/>
+                                    </g>
+                                    </svg>
+                            </span>
+                            <input type="email" class="form-control" id="email" name="email" onchange="validateEmail()" placeholder="Email" required pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
+                            <div class="invalid-feedback">Please enter a valid email address.</div>
+                        </div>
+                    </div>
+                    <!-- <div class="input-group-text input-group-outline mb-3">
+                    {{render_field(form.email ,class_="form-control", type="Email", placeholder="Email", id="email",onchange="validateEmail()")}}
+                    <div class="invalid-feedback">Please enter a valid email address.</div>
+
+                    </div> -->
+                      <label for="validationPassword">Password</label>
+                      
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon1">
+                               
+                          </span>
+                          </span>
+                        <input type="password" class="form-control" id="validationPassword" minlength="8" name="password" placeholder="Password" value="" required>
+                        <!-- <small id="passwordHelpBlock" class="form-text text-muted">
+                          Your password must be minimum 8 characters long,  must contain special characters "!@#$%&*_?", numbers, lower and upper letters only.
+                        </small> -->
+      
+                      <div id="feedbackin" class="valid-feedback">
+                          Strong Password!
+                      </div>
+                      <div id="feedbackirn" class="invalid-feedback">
+                       
+                      </div>                    
+                      </div>  
+                      
+                    <!-- <div class="input-group-text input-group-outline mb-3">
+                      {{ render_field(form.password, class="form-control", id="password", type="password", placeholder="Password", onchange="validatePassword()") }}
+                      <div class="invalid-feedback" id="password-error"></div>
+                      <div class="progress mt-2">
+                          <div class="progress-bar" id="password-strength" role="progressbar" style="width: 0;"></div>
+                      </div>
+                  </div> -->
+                  <br>
+                  <div class="input-group-text input-group-outline mb-3">
+                    {{ render_field(form.role,class="form-control", id="role_select", onchange="handleRoleChange()") }}
+                    <div class="invalid-feedback">Please enter a valid role.</div>
+                </div>
+                <div id="department-field" style="display: none;">
+                  {{ render_field(form.department, class="form-control", id="department", placeholder="Department",style="padding-left: 55px;") }}
+                  <div class="invalid-feedback">Please enter a valid department.</div>
+              </div>
+            </div>
+                      <div class="form-check form-check-info text-start ps-0">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                        <label class="form-check-label" for="flexCheckDefault">
+                          I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                        </label>
+                        <div class="invalid-feedback">You must agree to the Terms and Conditions.</div>
+
+                      </div>
+                      
+                      <div class="text-center">
+                        <button type="submit" name="register" onclick="validation()"
+                                class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign Up</button>
+                      </div>
+                    </form>
+                    <br>
+                  </div>
+                  <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                    <p class="mb-2 text-sm mx-auto">
+                      Already have an account?
+                      <a href="{{ url_for('authentication_blueprint.login') }}" class="text-primary text-gradient font-weight-bold">Sign IN</a>
+                    </p>
+                  </div>
+
+                {% endif %}
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      
+    </section>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+  function validateUsername() {
+    var username = document.getElementById("username").value;
+    if (username.length < 4) {
+        document.getElementById("username").classList.add("is-invalid");
+        document.getElementById("username").classList.remove("is-valid");
+        document.getElementById("usernameError").innerHTML = "Please enter a valid username.";
+    } else {
+        document.getElementById("username").classList.add("is-valid");
+        document.getElementById("username").classList.remove("is-invalid");
+    }
+};
+document.getElementById("username").addEventListener("input", function(event) {
+    var userInput = event.target;
+    var inputValue = userInput.value;
+    
+    // Remove non-numeric characters (alphabets and special characters)
+    var alphabetValue = inputValue.replace(/[^a-zA-Z ]/g, "");
+    
+    // Update the input field with the cleaned numeric value
+    userInput.value = alphabetValue;
+    
+    // Call the phone number validation function
+    validateUsername();});
+
+function validatePhone() {
+    var phoneInput = document.getElementById("phone");
+    var phone = phoneInput.value;
+
+    // Remove any non-numeric characters from the input
+    var numericValue = phone.replace(/[^0-9]/g, "");
+
+    // Check if the phone number starts with 6, 7, 8, or 9
+    if (/^[6-9]/.test(numericValue)) {
+        // Validate that the input has 10 digits
+        if (numericValue.length === 10) {
+            phoneInput.classList.remove("is-invalid");
+            phoneInput.classList.add("is-valid");
+            document.getElementById("phoneError").innerHTML = "";
+        } else {
+            phoneInput.classList.add("is-invalid");
+            phoneInput.classList.remove("is-valid");
+            document.getElementById("phoneError").innerHTML = "Phone number must be 10 digits long.";
+        }
+    } else {
+        phoneInput.classList.add("is-invalid");
+        phoneInput.classList.remove("is-valid");
+        document.getElementById("phoneError").innerHTML = "Please enter a valid Indian phone number (starting with 6, 7, 8, or 9).";
+    }
+}
+
+document.getElementById("phone").addEventListener("input", function(event) {
+    var phoneInput = event.target;
+    var inputValue = phoneInput.value;
+    
+    // Remove non-numeric characters (alphabets and special characters)
+    var numericValue = inputValue.replace(/[^0-9]/g, "");
+    
+    // Update the input field with the cleaned numeric value
+    phoneInput.value = numericValue;
+
+    
+    // Call the phone number validation function
+    validatePhone();});
+
+function validateEmail() {
+    var email = document.getElementById("email").value;
+    var emailRegex = /^[A-Za-z0-9._%+-]+@(gmail\.com|yahoo\.com|hotmail\.com)$/;
+    if (!emailRegex.test(email)) {
+        document.getElementById("email").classList.add("is-invalid");
+        document.getElementById("email").classList.remove("is-valid");
+    } else {
+        document.getElementById("email").classList.add("is-valid");
+        document.getElementById("email").classList.remove("is-invalid");
+    }
+}
+
+// function validation(event) {
+//     var username = document.getElementById("username").value;
+//     var email = document.getElementById("email").value;
+//     var password = document.getElementById("password").value;
+//     var role = document.getElementById("role_select").value;
+//     var phone = document.getElementById("phone").value;
+
+//     if (!username || !email || !password || !role || !phone) {
+//         alert("Please fill in all fields and agree to the terms and conditions.");
+//         event.preventDefault(); // Prevent form submission
+//     }
+// }
+
+// document.getElementById('myform').addEventListener('submit', validateForm);
+
+
+</script>
+<script>
+  
+  function validation() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("validationPassword").value;
+    const roleSelect = document.getElementById("role_select");
+    const phone = document.getElementById("phone").value;
+    const mail = document.getElementById("email").value;
+
+    if (!username || !password || !roleSelect.value || !phone) {
+        alert("Please fill in all required fields and agree to the terms and conditions.");
+
+        if (!username) {
+            document.getElementById("username").classList.add("is-invalid");
+        } else {
+            document.getElementById("username").classList.remove("is-invalid");
+        }
+
+        if (!password) {
+            document.getElementById("validationPassword").classList.add("is-invalid");
+        } else {
+            document.getElementById("validationPassword").classList.remove("is-invalid");
+        }
+
+        if (!roleSelect.value) {
+            roleSelect.classList.add("is-invalid");
+        } else {
+            roleSelect.classList.remove("is-invalid");
+        }
+
+        if (!phone) {
+            document.getElementById("phone").classList.add("is-invalid");
+        } else {
+            document.getElementById("phone").classList.remove("is-invalid");
+        }
+
+        if (!mail) {
+            document.getElementById("email").classList.add("is-invalid");
+        } else {
+            document.getElementById("email").classList.remove("is-invalid");
+        }
+
+
+        return false; // Prevent form submission
+    }
+
+    return true;
+}
+  
+  </script>
+<!-- <script>
+  
+  function validation(event) {
+        const name = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const role = document.getElementById("role_select").value;
+        const phone = document.getElementById("phone").value;
+
+        //if (!name || !email || !password || !role || !phone) {
+          //  event.preventDefault(); // Prevent form submission
+            // if (!name) {
+            //     document.getElementById("username").classList.add("is-invalid");
+            // }
+            // if (!email) {
+            //     document.getElementById("email").classList.add("is-invalid");
+            // }
+            // if (!password) {
+            //     document.getElementById("password").classList.add("is-invalid");
+            // }
+            // if (!role) {
+            //     document.getElementById("role_select").classList.add("is-invalid");
+            // }
+            // if (!phone) {
+            //     document.getElementById("phone").classList.add("is-invalid");
+            // }
+        //}
+        
+
+            if ( !name || !email || !password || !phone) {
+                alert("Please fill in all fields and agree to the terms and conditions.");
+                document.getElementById("username").classList.add("is-invalid");
+                document.getElementById("email").classList.add("is-invalid");
+                document.getElementById("password").classList.add("is-invalid");
+                document.getElementById("role_select").classList.add("is-invalid");
+                document.getElementById("phone").classList.add("is-invalid");
+                return false;
+            }
+            return true;
+
+        }
+    ;
+  
+  
+  </script> -->
+
+<script>
+  // Function to validate the password
+// Function to validate the password
+function validatePassword() {
+    var passwordInput = document.getElementById("validationPassword");
+    var password = passwordInput.value;
+
+    // Define regex patterns for password criteria
+    var hasUppercase = /[A-Z]/.test(password);
+    var hasLowercase = /[a-z]/.test(password);
+    var hasDigit = /\d/.test(password);
+    var hasSpecialChar = /[!@#$%^&*_?]/.test(password);
+    var isLengthValid = password.length >= 8;
+
+    // Initialize an error message array to collect error messages
+    var errorMessages = [];
+
+    // Check each password criterion and collect error messages
+    if (!hasUppercase) {
+        errorMessages.push("Add at least one capital letter.");
+    }
+    if (!hasLowercase) {
+        errorMessages.push("Add at least one lowercase letter.");
+    }
+    if (!hasDigit) {
+        errorMessages.push("Add at least one number.");
+    }
+    if (!hasSpecialChar) {
+        errorMessages.push("Add at least one special character (!@#$%^&*_?).");
+    }
+    if (!isLengthValid) {
+        errorMessages.push("Password must be at least 8 characters long.");
+    }
+
+    // Check if there are any error messages
+    if (errorMessages.length > 0) {
+        // Password is invalid
+        passwordInput.classList.add("is-invalid");
+        passwordInput.classList.remove("is-valid");
+        document.getElementById("feedbackirn").style.display = "block"; // Show the invalid feedback
+        document.getElementById("feedbackin").style.display = "none"; // Hide the valid feedback
+        document.getElementById("feedbackirn").innerHTML = errorMessages.join(" "); // Display error messages
+    } else {
+        // Password is valid
+        passwordInput.classList.remove("is-invalid");
+        passwordInput.classList.add("is-valid");
+        document.getElementById("feedbackin").style.display = "block"; // Show the valid feedback
+        document.getElementById("feedbackirn").style.display = "none"; // Hide the invalid feedback
+        document.getElementById("feedbackin").innerHTML = "Strong Password!";
+    }
+}
+
+// Add an event listener to trigger password validation on input
+document.getElementById("validationPassword").addEventListener("input", validatePassword);
+
+
+</script>
+
+
+<script>
+  function handleRoleChange() {
+      var roleSelect = document.getElementById("role_select");
+      var departmentField = document.querySelector("#department-field");
+  
+      if (roleSelect.value === "Employee" || roleSelect.value === "Manager") {
+          departmentField.style.display = "block";
+      } else {
+          departmentField.style.display = "none";
+      }
+  }
+
+  // function validation() {
+  //       const name = document.getElementById("username").value;
+  //       const email = document.getElementById("email").value;
+  //       const password = document.getElementById("validationPassword").value;
+  //       const country = document.getElementById("country").value;
+  //       const state = document.getElementById("region").value;
+  //       const city = document.getElementById("city").value;
+  //       const streetAddress = document.getElementById("streetAddress").value;
+  //       const postalCode = document.getElementById("postalCode").value;
+  //       const role = document.getElementById("role").value;
+  //       const phone = document.getElementById("phone").value;
+
+  //       if (!name || !email || !password || !country || !state || !city || !streetAddress || !postalCode || !role || !phone) {
+  //           event.preventDefault(); // Prevent form submission
+  //           if (!name) {
+  //               document.getElementById("username").classList.add("is-invalid");
+  //           }
+  //           if (!email) {
+  //               document.getElementById("email").classList.add("is-invalid");
+  //           }
+  //           if (!country) {
+  //               document.getElementById("country").classList.add("is-invalid");
+  //           }
+  //           if (!state) {
+  //               document.getElementById("region").classList.add("is-invalid");
+  //           }
+  //           if (!city) {
+  //               document.getElementById("city").classList.add("is-invalid");
+  //           }
+  //           if (!streetAddress) {
+  //               document.getElementById("streetAddress").classList.add("is-invalid");
+  //           }
+  //           if (!postalCode) {
+  //               document.getElementById("postalCode").classList.add("is-invalid");
+  //           }
+  //           if (!role) {
+  //               document.getElementById("role").classList.add("is-invalid");
+  //           }
+  //           if (!phone) {
+  //               document.getElementById("phone").classList.add("is-invalid");
+  //           }
+  //       }
+  //       if (name || email || password || country || state || city || streetAddress || postalCode || role || phone) {
+  //           if (name) {
+  //               document.getElementById("username").classList.add("is-valid");
+  //           }
+  //           if (email) {
+  //               document.getElementById("email").classList.add("is-valid");
+  //           }
+  //           if (password) {
+  //               document.getElementById("validationPassword").classList.add("is-valid");
+  //           }
+  //           if (country) {
+  //               document.getElementById("country").classList.add("is-valid");
+  //           }
+  //           if (state) {
+  //               document.getElementById("region").classList.add("is-valid");
+  //           }
+  //           if (city) {
+  //               document.getElementById("city").classList.add("is-valid");
+  //           }
+  //           if (streetAddress) {
+  //               document.getElementById("streetAddress").classList.add("is-valid");
+  //           }
+  //           if (postalCode) {
+  //               document.getElementById("postalCode").classList.add("is-valid");
+  //           }
+  //           if (role) {
+  //               document.getElementById("role").classList.add("is-valid");
+  //           }
+  //           if (phone) {
+  //               document.getElementById("phone").classList.add("is-valid");
+  //           }
+
+  //           if (name == "" || email == "" || password == "" || postalCode == "" || phone == "") {
+  //               alert("Please fill in all fields and agree to the terms and conditions.");
+  //               return false;
+  //           }
+  //           return true;
+
+  //       }
+  //   };
+</script>
+  </script>
+
+
+{% endblock javascripts %}

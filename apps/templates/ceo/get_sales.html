@@ -1,0 +1,140 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+    
+/* Custom CSS for centering and white box */
+.center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .white-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        
+    }
+
+    table, th, td, tr {
+        border: 1px solid;
+        margin: 70px;
+        padding: 30px;
+    }
+
+    table, td {
+        margin: auto;
+        border-collapse: collapse;
+    }
+
+    @media (max-width: 768px) {
+        table, th, td {
+            padding: 5px; /* Reduce padding for smaller screens */
+        }
+    }
+
+
+
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <h1 style="text-align: center;">Sales Data</h1>
+        
+</div>
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="white-box">
+                <label for="sales_revenue">Total Sales Revenue:</label>
+                {{ total_sales_revenue }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="white-box">
+                <label for="conversion">Average Conversion Rate:</label>
+                {{ average_conversion_rate }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="white-box">
+                <label for="acquisition">Total Customer acquisition cost (CAC):</label>
+                {{ total_cac }}
+            </div>
+        </div>
+    
+        <div class="col-md-6">
+            <div class="white-box">
+                <label for="clv-lifetime">Average Customer lifetime value (CLV):</label>
+                {{ average_clv }}
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="container-fluid py-6">
+        <div class="row">
+        <div class="col-md-6">
+            <div class="white-box">
+                <label for="churn">Average Churn rate (%):</label>
+                {{ average_churn_rate }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="white-box">
+                <label for="s-roi">Average Return on Investment (ROI):</label>
+                {{ average_roi }}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid py-4">
+    <h1 style="text-align: center;">Sales Metrics</h1>
+</div>
+
+<div class="white-box">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Total Sales</th>
+            <th>No. of Conversion</th>
+            <th>CAC</th>
+            <th>CLV</th>
+            <th>Churn Rate</th>
+            <th>ROI</th>
+        </tr>
+        {% for j in data %}
+        <tr>
+            <td>{{ j.id }} </td>
+            <td>{{ j.sales_revenue }} </td>
+            <td>{{ j.conversion }} </td>
+            <td>{{ j.acquisition }} </td>
+            <td>{{ j.lifetime }}  </td>
+            <td>{{ j.churn }} </td>
+            <td>{{ j.s_roi }} </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="white-box">
+    
+</div>
+
+{% include 'includes/footer.html' %}
+{% endblock content %}

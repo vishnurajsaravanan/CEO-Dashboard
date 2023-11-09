@@ -1,0 +1,120 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+    
+/* Custom CSS for centering and white box */
+.center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .white-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        align-items: center;
+    }
+
+
+
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <h1 style="text-align: center;">Send Email</h1>
+        
+</div>
+
+<form id="emailForm" action="/send_email" method="post">
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-4">
+                
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label>Recipient's Email:</label>
+                    <input type="email" id="recipient_email" name="recipient_email" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-4">
+                
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-4">
+                
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="message_body">Message:</label>
+                    <textarea id="message_body" name="message_body" rows="2" required></textarea>
+                </div>
+            </div>
+            <div class="col-md-4">
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button class="btn btn-primary" type="submit" onclick="showAlert()">Send Mail</button>
+        </div>
+    </div>
+    </form>
+        
+
+{% include 'includes/footer.html' %}
+{% endblock content %}
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    function isValidEmail(email) {
+        // Regular expression for basic email validation
+        var emailPattern = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+        return emailPattern.test(email);
+    }
+    function showAlert() {
+
+    var email = document.getElementById("recipient_email").value;
+    var subject = document.getElementById("subject").value;
+    var message = document.getElementById("message_body").value;
+
+    // Check if email, subject, and message are filled correctly
+    if (isValidEmail(email) && subject && message) {
+        alert('Email has been successfully sent! Redirecting to the main page!');
+    } else {
+        alert('Please fill in all fields correctly.');
+    }
+        }
+</script>
+{% endblock javascripts %}

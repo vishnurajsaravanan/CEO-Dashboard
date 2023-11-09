@@ -1,0 +1,99 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} financial {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    /* Custom CSS for centering and white box */
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .white-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+            <h1 style="text-align: center;">Financial Metrics Input</h1>
+        
+</div>
+
+<form action="/calculate_metrics" method="post">
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="revenue">Revenue ($M):</label>
+                    <input type="number" class="form-control" id="revenue" name="revenue" step="0.01" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="profit">Profit ($M):</label>
+                    <input type="number" class="form-control" id="profit" name="profit" step="0.01" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="expenses">Expenses ($M):</label>
+                    <input type="number" class="form-control" id="expenses" name="expenses" step="0.01" required>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="gross_margin">Gross Margin (%):</label>
+                    <input type="number" class="form-control" id="gross_margin" name="gross_margin" step="0.01" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="eps">Earnings per Share (EPS):</label>
+                    <input type="number" class="form-control" id="eps" name="eps" step="0.01" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="roi">Return on Investment (ROI) (%):</label>
+                    <input type="number" class="form-control" id="roi" name="roi" step="0.01" required>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary" type="submit">Submit Metrics</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

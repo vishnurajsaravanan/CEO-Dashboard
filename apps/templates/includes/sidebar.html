@@ -1,0 +1,446 @@
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" 
+         href="#" target="_blank">
+        <img src="/static/assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold text-white">Categories</span>
+      </a>
+    </div>
+    <hr class="horizontal light mt-0 mb-2">
+    <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+<!-- Dashboard -->
+        {% if current_user.role=="Employee" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'index' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/employee/dashboard">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">dashboard</i>
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="CEO" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'index' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/ceo/dashboard">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">dashboard</i>
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Manager" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'index' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/manager/dashboard">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">dashboard</i>
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        {% endif %}
+<!-- Employee here -->
+        {% if current_user.role=="Employee" and current_user.department == "Finance" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'financial' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/financial">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">account_balance_wallet</i>
+            </div>
+            <span class="nav-link-text ms-1">Financial Metrics</span>
+          </a>
+        </li>
+        {% endif %}
+<!-- CEO here -->
+        {% if current_user.role=="CEO" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'financial' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/get_metrics">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">report</i>
+            </div>
+            <span class="nav-link-text ms-1">Financial Report</span>
+          </a>
+        </li>
+        {% endif %}
+<!-- Manager here -->
+        {% if current_user.role=="Manager" and current_user.department == "Finance" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'financial' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/get_metrics">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">receipt</i>
+            </div>
+            <span class="nav-link-text ms-1">Financial Ratios</span>
+          </a>
+        </li>
+        {% endif %}
+<!-- Sales data -->
+        {% if current_user.role=="Employee" and current_user.department == "Sales" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'sales' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/sales">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">receipt</i>
+            </div>
+            <span class="nav-link-text ms-1">Sales Data</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Manager" and current_user.department == "Sales" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'sales' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/get_sales">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">receipt</i>
+            </div>
+            <span class="nav-link-text ms-1">Sales Data Analysis</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if current_user.role=="CEO" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'sales' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/get_sales">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">receipt</i>
+            </div>
+            <span class="nav-link-text ms-1">Sales Data Analysis</span>
+          </a>
+        </li>
+        {% endif %}
+
+<!-- operational_metrics -->
+        {% if current_user.role=="Employee"  and current_user.department == "Operational" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'operational' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/operational">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">autorenew</i>
+            </div>
+            <span class="nav-link-text ms-1">Operational Metrics</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Manager" and current_user.department == "Operational" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'operational' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/get_operational">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">autorenew</i>
+            </div>
+            <span class="nav-link-text ms-1">Operational Analysis</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="CEO" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'operational' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/get_operational">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">autorenew</i>
+            </div>
+            <span class="nav-link-text ms-1">Operational Analysis</span>
+          </a>
+        </li>
+        {% endif %}
+
+<!-- Task Allocation -->
+        {% if current_user.role=="CEO" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'tasks' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/tasks">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">task</i>
+            </div>
+            <span class="nav-link-text ms-1">Tasks</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Manager" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'tasks' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/create_tasks">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">task</i>
+            </div>
+            <span class="nav-link-text ms-1">Tasks</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Employee" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'tasks' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/create_tasks">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">task</i>
+            </div>
+            <span class="nav-link-text ms-1">CEO Tasks</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if current_user.role=="Manager" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'assign_tasks' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/assign_tasks">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">task</i>
+            </div>
+            <span class="nav-link-text ms-1">Assign Tasks</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Employee" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'assign_tasks' in segment %} active bg-gradient-primary {% endif %}" 
+            href="/assign_tasks">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">task</i>
+            </div>
+            <span class="nav-link-text ms-1">Manager Tasks</span>
+          </a>
+        </li>
+        {% endif %}
+
+<!-- chat -->
+        {% if current_user.role=="CEO" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'chat' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/messages">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Chat Room</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if current_user.role=="Manager" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'chat' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/messages">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Directors Chat Room</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if current_user.role=="Manager" and current_user.department=="Operational" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'chat' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/message_operational">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Chat Room</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if current_user.role=="Employee" and current_user.department=="Operational" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'chat' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/message_operational">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Chat Room</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if current_user.role=="Manager" and current_user.department=="Sales" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'chat' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/message_sales">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Chat Room</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if current_user.role=="Employee" and current_user.department=="Sales" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'chat' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/message_sales">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Chat Room</span>
+          </a>
+        </li>
+        {% endif %}
+
+
+        {% if current_user.role=="Manager" and current_user.department=="Finance" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'chat' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/message_finance">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Chat Room</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if current_user.role=="Employee" and current_user.department=="Finance" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'chat' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/message_finance">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">notifications</i>
+            </div>
+            <span class="nav-link-text ms-1">Chat Room</span>
+          </a>
+        </li>
+        {% endif %}
+
+<!-- mail -->
+        {% if current_user.role=="CEO" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'mail' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/email">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">mail
+              </i>
+            </div>
+            <span class="nav-link-text ms-1">Mail</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Manager" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'email' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/email">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">mail
+              </i>
+            </div>
+            <span class="nav-link-text ms-1">Mail</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Employee" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'email' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/email">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">mail
+              </i>
+            </div>
+            <span class="nav-link-text ms-1">Mail</span>
+          </a>
+        </li>
+        {% endif %}
+
+<!-- attachments -->
+        {% if current_user.role=="CEO" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'file' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/attach">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">attachment
+              </i>
+            </div>
+            <span class="nav-link-text ms-1">Attach File</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Manager" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'email' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/attach">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">attachment
+              </i>
+            </div>
+            <span class="nav-link-text ms-1">Attach File</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Employee" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'file' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/attach">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">attachment
+              </i>
+            </div>
+            <span class="nav-link-text ms-1">Attach File</span>
+          </a>
+        </li>
+        {% endif %}
+
+        <!-- Notification -->
+        {% if current_user.role=="CEO" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'index' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/notify">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">dashboard</i>
+            </div>
+            <span class="nav-link-text ms-1">Notification</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if current_user.role=="Manager" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'index' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/notify">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">dashboard</i>
+            </div>
+            <span class="nav-link-text ms-1">Notification</span>
+          </a>
+        </li>
+        {% endif %}
+<!-- Employee here -->
+        {% if current_user.role=="Employee" %}
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'financial' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/notify">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">account_balance_wallet</i>
+            </div>
+            <span class="nav-link-text ms-1">Notification</span>
+          </a>
+        </li>
+        {% endif %}
+
+
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white {% if 'profile' in segment %} active bg-gradient-primary {% endif %}" 
+             href="/profile">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Profile</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="{{ url_for('authentication_blueprint.logout') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">directions_run</i>
+            </div>
+            <span class="nav-link-text ms-1">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  

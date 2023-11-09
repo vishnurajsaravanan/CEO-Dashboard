@@ -1,0 +1,105 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} get operational {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    /* Custom CSS for centering and white box */
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .white-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    table, th, td, tr {
+        border: 1px solid;
+        margin: 50px;
+        padding: 20px;
+    }
+
+    table {
+        margin: auto;
+        border-collapse: collapse;
+    }
+
+    @media (max-width: 768px) {
+        table, th, td {
+            padding: 5px; /* Reduce padding for smaller screens */
+        }
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+    <h1 style="text-align: center;">Operational Metrics Analysis</h1>
+</div>
+<form action="/get_operational" method="get">
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="total_production_output">Total Production Output ($):</label>
+                    {{total_production_output}}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="supplier_performance">Supplier Performance (%):</label>
+                    {{supplier_performance}}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="stockout_rate">Downtime Percentage:</label>
+                    {{downtime_percentage}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<br>
+<br>
+
+<div class="container-fluid py-4">
+    <h1 style="text-align: center;">Operational Metrics</h1>
+</div>
+
+<br><br>
+<div class="white-box">
+<table>
+        <tr>
+            <th>ID</th>
+            <th>Production</th>
+            <th>Downtime</th>
+            <th>Supplier Performance</th>
+        </tr>
+        {% for j in data %}
+        <tr>
+            <td>{{ j.id }}</td>
+            <td>{{ j.total_production_output }}</td>
+            <td>{{ j.downtime_percentage }}</td>
+            <td>{{ j.supplier_performance }}</td>
+        </tr>
+        {% endfor %}
+</table>
+</div>
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

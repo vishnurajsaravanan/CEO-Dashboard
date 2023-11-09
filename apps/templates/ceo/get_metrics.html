@@ -1,0 +1,158 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} financial {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    /* Custom CSS for centering and white box */
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .white-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        
+    }
+
+    table, th, td, tr {
+        border: 1px solid;
+        margin: 70px;
+        padding: 30px;
+    }
+
+    table {
+        margin: auto;
+        border-collapse: collapse;
+    }
+
+    @media (max-width: 768px) {
+        table, th, td {
+            padding: 5px; /* Reduce padding for smaller screens */
+        }
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+    <h1 style="text-align: center;">Financial Ratios</h1>
+</div>
+
+<form action="/calculate_metrics" method="get">
+    <div class="container-fluid py-4">
+        <label for="profitability"><h4>Profitability</h4></label>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="white-box">
+                    <label for="gross-profit">Gross Profit Margin:</label>
+                    {{gross_profit}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="white-box">
+                    <label for="net-proft">Net Profit Margin:</label>
+                    {{net_profit}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <label for="liquidity"><h4>Liquidity</h4></label>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="white-box">
+                    <label for="current-ratio">Current Ratio:</label>
+                    {{current_ratio}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="white-box">
+                    <label for="quick-ratio">Quick Ratio:</label>
+                    {{quick_ratio}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <label for="solvency-ratio"><h4>Solvency Ratio</h4></label>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="white-box">
+                    <label for="debt-equity">Debt to Equity Ratio:</label>
+                    {{debt_equity}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="white-box">
+                    <label for="debt-asset">Debt to Asset Ratio:</label>
+                    {{debt_asset}}    
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="container-fluid py-4">
+    <h1 style="text-align: center;">Financial Metrics</h1>
+</div>
+
+<div class="white-box">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Revenue</th>
+            <th>Profit</th>
+            <th>Expenses</th>
+            <!-- <th>Status?</th> -->
+        </tr>
+        {% for i in data %} 
+        <tr>
+            <td>{{ i.id }} </td>
+            <td>{{ i.revenue }} </td>
+            <td>{{ i.profit }} </td>
+            <td>{{ i.expenses }} </td>
+            
+        </tr>
+        {% endfor %}
+
+    </table>
+    </div>
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<!-- <script>
+    var deleteButton = document.getElementById("deleteButton");
+
+    deleteButton.addEventListener("click", function() {
+        // Send an HTTP request to your Flask server to trigger data deletion
+        fetch('/delete_data', {
+            method: 'POST',
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Data deleted successfully');
+            } else {
+                alert('Failed to delete data');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script> -->
+{% endblock javascripts %}

@@ -1,0 +1,179 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Template {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+.center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+.col {
+    padding: 20px;
+    overflow: auto;
+}
+
+.white-box {
+  max-height: 100%; /* Adjust the height as needed */
+  overflow-y: auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+table, th, td, tr {
+        border: 1px solid;
+        padding: 5px;
+    }
+
+    table, td {
+        margin: auto;
+        border-collapse: collapse;
+    }
+
+    @media (max-width: 768px) {
+        table, th, td {
+            padding: 5px; /* Reduce padding for smaller screens */
+        }
+    }
+
+
+header {
+    text-align: center;
+}
+
+
+
+.message {
+    list-style-type: none;
+    margin-bottom: 10px;
+    background-color: #f10a91;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    width: 100%;
+}
+
+.direct_message {
+    list-style-type: none;
+    margin-bottom: 10px;
+    background-color: #81024c;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    width: auto;
+    text-align: right;
+}
+
+.list span {
+
+    font-weight: bolder;
+    color: #b5b0b9;
+}
+
+#chat {
+    width: 80%;
+    margin: auto;
+}
+
+
+
+input {
+    width: 70%;
+    height: 30px;
+}
+
+button {
+    width: 100%;
+    height: 38px;
+}
+
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <h1 style="text-align: center;">Chat App</h1>
+
+</div>
+<div class="row">
+    
+    <div class="col-12 col-xl-5">
+    <form id="message-form" method="post" action="/message_employee">
+                <div class="col-md-12" style="padding-top: 50px;">
+                        <h4 style="text-align: center;">Welcome, {{ current_user.username }}</h4>
+                </div>
+                <div style="padding-top: 50px;">
+                    <div class="white-box" style="background-color:lightyellow;">
+                        <label for="eps">Message:</label>
+                        <input type="text" id="message" placeholder="Type your message" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button id="submit" class="btn btn-primary" type="submit">Send</button>
+                    </div>
+                </div>
+                </div>
+                <div class="col-12 col-xl-6">
+                    <div class="white-box">
+                        <div id="chat">
+                            {% for j in data %}
+                            <ul id="messages" style="justify-content: center;">
+                                {% if current_user.username == j.username %}
+                                <li class="message"><i class="material-icons opacity-10">account_circle</i> {{j.username}} : {{j.message}}</li> 
+                                {% else %}
+                                <li class="direct_message">{{j.username}} : {{j.message}}</li> 
+                                    {% endif %}
+                            </ul>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    </div>
+    </form>
+</div> 
+</div>
+
+
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#message-form').submit(function (e) {
+                e.preventDefault();
+                // var username = $('#username').val();
+                var message = $('#message').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/message_operational',
+                    data: {
+                        // 'username': username,
+                        'message': message
+                    },
+                    success: function (response) {
+                        if (response.status === 'Message sent successfully') {
+                            $('#message').val('');
+                            window.location.reload(); // Clear the message input
+                        }
+                    }
+                });
+            });
+        });
+        
+    </script>
+    
+{% endblock javascripts %}

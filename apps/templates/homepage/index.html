@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Home Page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            html,body{
+	width:100%;
+overflow-x:hidden;
+}
+body,span,ul,li,p,h1,h2,h3,h4,h5,h6,button,input{
+	font-family: Inter, sans-serif;
+}
+ h1 {
+   font-size: 60px;
+   line-height: 78px;
+}
+ h2 {
+   font-size: 48px;
+   line-height: 62.4px;
+}
+ h3 {
+   font-size: 40px;
+   line-height: 52px;
+}
+ h4 {
+   font-size: 32px;
+   line-height: 41.6px;
+}
+ h5 {
+   font-size: 24px;
+   line-height: 31.2px;
+}
+ h6 {
+   font-size: 14px;
+   line-height: 22px;
+}
+ p {
+   font-size: 16px;
+   line-height: 28px;
+}
+ p.lg {
+   font-size: 18px;
+   line-height: 32px;
+}
+ p.sm {
+   font-size: 14px;
+   line-height: 22px;
+}
+a{
+	text-decoration: none;
+	color: inherit;
+}
+.white{
+	color: #FFF;
+}
+/* 3. Buttons */
+ button {
+   cursor: pointer;
+   border: none;
+   text-align: center;
+   border-radius: 5px;
+	transition: ease 0.3s;
+}
+ button.sm {
+   font-size: 14px;
+   line-height: 17px;
+   font-weight: 500;
+   padding: 8px 20px;
+}
+ button.md {
+   font-size: 16px;
+   line-height: 19px;
+   font-weight: 500;
+   padding: 14px 20px;
+}
+ button.lg {
+   font-size: 18px;
+   line-height: 22px;
+   font-weight: 500;
+   padding: 17px 30px;
+}
+ button.gradient {
+   border-width: 1px;
+   border-style: solid;
+   border-radius: 5px;
+   background: transparent;
+   border-image-source: linear-gradient(left, 90deg, #2eddc1 0.24%, #45defc 99.85%);
+}
+ button.gradient:hover {
+   background: linear-gradient(90deg, #2eddc1 0.24%, #45defc 99.85%);
+   color: #212529;
+   border-color: transparent;
+}
+ button.gradient:active {
+   background: #fff;
+   color: #212529;
+}
+ button.solid {
+   color: #3abba6;
+   border: 1px solid #3abba6;
+   background-color: transparent;
+   border-radius: 5px;
+}
+ button.solid:hover {
+   background: #3abba6;
+   color: #fff;
+}
+ button.solid:active {
+   background: #309c8a;
+   color: #fff;
+}
+/* 4. Input */
+ input {
+   outline: none;
+   border: 1px solid transparent;
+   border-radius: 5px;
+   background-color: #212529;
+   padding: 14px 15px;
+   color: #dee2e6;
+   font-weight: 400;
+   font-size: 16px;
+   line-height: 19.36px;
+}
+ input:focus {
+   border: 1px solid #3abba6;
+}
+/* 5. Body Container */
+.container{
+	width: 100%;
+}
+section, .hero-section, .last-section{
+	width: 100%;
+	padding: 60px auto;
+}
+section.fullwidth{
+  padding: 0 !important;
+  width:  100% !important;
+  max-width: 100% !important;
+}
+.container section{
+   margin-left: auto;
+   margin-right: auto;
+}
+
+ @media screen and (min-width: 375px) {
+   .container section{
+     max-width: 325px;
+  }
+}
+ @media screen and (min-width: 768px) {
+   .container section{
+     max-width: 718px;
+  }
+}
+ @media screen and (min-width: 1440px) {
+   .container section{
+     max-width: 1300px;
+  }
+}
+/* 6. Grid Columns */
+ .row:after {
+   display: block;
+   clear: both;
+   content: "";
+}
+ .row + .row {
+   margin-top: 3%;
+}
+ [class^="col-"] {
+   float: left;
+   margin-right: 3%;
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+}
+ [class^="col-"]:last-child {
+   margin-right: 0%;
+}
+ .col-1 {
+   width: 5.5833333333%;
+}
+ .col-2 {
+   width: 14.1666666667%;
+}
+ .col-3 {
+   width: 22.75%;
+}
+ .col-4 {
+   width: 31.3333333333%;
+}
+ .col-5 {
+   width: 39.9166666667%;
+}
+ .col-6 {
+   width: 48.5%;
+}
+ .col-7 {
+   width: 57.0833333333%;
+}
+ .col-8 {
+   width: 65.6666666667%;
+}
+ .col-9 {
+   width: 74.25%;
+}
+ .col-10 {
+   width: 82.8333333333%;
+}
+ .col-11 {
+   width: 91.4166666667%;
+}
+ .col-12 {
+   width: 100%;
+}
+/* Footer */
+ div.footer-container {
+   width: 100%;
+   padding: 80px 25px 30px;
+   color: #dee2e6;
+   background: #000;
+}
+div.footer-container > *{
+	max-width: 1300px; 
+	margin-left: auto;
+	margin-right: auto;
+}
+ div.footer-container > div.footer-form {
+   margin-bottom: 50px;
+}
+/*  @media screen and (min-width: 1440px) {
+   div.footer-container > div.footer-form {
+     display: none;
+  }
+} */
+ div.footer-container > div.footer-form > h5 {
+   margin-bottom: 30px;
+   color: #3abba6;
+}
+ div.footer-container > div.footer-form > p {
+   color: #dee2e6;
+}
+ @media screen and (min-width: 768px) {
+   div.footer-container > div.footer-form > p {
+     max-width: 85%;
+  }
+}
+ div.footer-container > div.footer-form > formset {
+   display: flex;
+   width: 100%;
+   gap: 10px;
+}
+ div.footer-container > div.footer-form > formset > input {
+   flex-grow: 1;
+}
+ div.footer-container > div.top-footer {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+}
+ @media screen and (min-width: 768px) {
+   div.footer-container > div.top-footer {
+     grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+ div.footer-container > div.top-footer > .footer-block > p {
+   color: #3abba6;
+   margin-top: 30px;
+   margin-bottom: 30px;
+}
+ div.footer-container > div.top-footer > .footer-block > ul {
+   padding: 0px;
+   list-style: none;
+   display: grid;
+   gap: 30px;
+   margin-bottom: 30px;
+}
+ div.footer-container > div.top-footer > .footer-block > ul > li {
+   font-size: 12px;
+   color: #dee2e6;
+   line-height: 14.52px;
+}
+ div.footer-container .footer-divider {
+   border: none;
+   height: 1px;
+   color: #212529;
+   background-color: #212529;
+   margin-bottom: 20px;
+}
+ div.footer-container #colophon {
+   display: flex;
+   flex-wrap: wrap;
+}
+ div.footer-container #colophon > .social-links {
+   flex-basis: 50%;
+   display: flex;
+   gap: 20px;
+   align-items: center;
+}
+ @media screen and (min-width: 768px) {
+   div.footer-container #colophon > .social-links {
+     flex-basis: unset;
+  }
+}
+ div.footer-container #colophon > .language-selector {
+   flex-grow: 1;
+   display: flex;
+   justify-content: end;
+   align-items: center;
+}
+ @media screen and (min-width: 768px) {
+   div.footer-container #colophon > .language-selector {
+     flex-basis: unset;
+  }
+}
+ div.footer-container #colophon > .site-info {
+   display: flex;
+   padding-top: 25px;
+   font-size: 12px;
+   flex-grow: 1;
+   line-height: 14.52px;
+}
+ @media screen and (min-width: 768px) {
+   div.footer-container #colophon > .site-info {
+     padding-top: inherit;
+     flex-basis: 50%;
+     justify-content: end;
+     align-items: center;
+  }
+}
+/* Header */
+ nav {
+   width: 100%;
+   background: #000;
+   color: #fff;
+   padding: 20px 50px;
+}
+ nav > .nav-menu {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+ @media screen and (min-width: 1440px) {
+   nav > .nav-menu {
+     justify-content: unset;
+  }
+}
+ nav > .nav-menu > .nav-logo {
+   margin-right: 90px;
+}
+ nav > .nav-menu > .nav-items {
+   display: none;
+}
+ @media screen and (min-width: 1440px) {
+   nav > .nav-menu > .nav-items {
+     display: flex;
+     flex-grow: 1;
+  }
+}
+ nav > .nav-menu > .nav-items ul {
+   gap: 80px;
+   display: flex;
+}
+nav > .nav-menu > .nav-right{
+	display: none;
+}
+@media screen and (min-width: 768px){
+ nav > .nav-menu > .nav-right {
+   justify-self: flex-end;
+   display: flex;
+   gap: 20px;
+   align-items: center;
+	}
+}
+ nav > .nav-menu > .nav-right > button {
+   display: none;
+}
+ @media screen and (min-width: 768px) {
+   nav > .nav-menu > .nav-right > button {
+     display: block;
+  }
+}
+ nav > .nav-menu > .nav-right > .toggle-menu {
+   display: block;
+}
+ @media screen and (min-width: 1440px) {
+   nav > .nav-menu > .nav-right > .toggle-menu {
+     display: none;
+  }
+}
+ nav > .nav-menu > .nav-right > .toggle-menu .toggle-items {
+   display: none;
+}
+ nav > .nav-menu > .nav-right > .toggle-menu .toggle-icon {
+   font-size: 28px;
+}
+ nav > .nav-menu > .nav-right > .toggle-menu #toggle-btn {
+   display: none;
+}
+ nav > .nav-menu > .nav-right > .toggle-menu #toggle-btn:checked + ul {
+   display: block;
+   position: absolute;
+   background: #000;
+}
+.nav-right > a{
+	display: none;
+}
+@media screen and (min-width: 1440px){
+	.nav-right > a{
+	  display: block;
+	}
+}
+ nav ul {
+   list-style: none;
+   display: flex;
+}
+ 
+
+/*PAGE CSS START */
+.hero-section > h1, .last-section > h1{
+        font-size: 40px;
+        line-height: 52px;
+        font-weight: 300;
+    }
+    .hero-section > h1 > .focus{
+        font-size:  50px;
+        line-height: 60px;
+        font-weight: 800;
+    }
+    .hero-section{
+        padding-top: 240px;
+        padding-bottom: 400px;
+    }
+    .primary-text-gradient{
+      background: -webkit-linear-gradient(0.22deg, #2EDDC1 0.24%, #45DEFC 99.85%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .section{
+        padding-top: 90px;
+        padding-bottom: 60px;
+    }
+    div.section > h2.section-header{
+        font-size: 32px;
+        line-height: 41.6px;
+        font-weight: 300;
+    }
+    div.section > h2 > .focus{
+        font-weight: 800;
+    }
+    body{
+        background-color: #000;
+    }
+    .typography-white{
+        color: #FFF;
+    }
+    .carousel-selector{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .section-inner.two-block-section{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .hero-section-container{
+        
+        background-size: cover;
+        background-position: center center;
+    }
+    .items img{ 
+        max-height: 460px;
+    }
+    .gofreight_image-slider {
+	 position: relative;
+}
+ .gofreight_image-slider:before, .gofreight_image-slider:after {
+	 position: absolute;
+	 top: 0;
+	 z-index: 1;
+	 content: "";
+	 display: block;
+	 width: 20px;
+	 height: 100%;
+}
+ .gofreight_image-slider:before {
+	 left: 0;
+	 background: linear-gradient(90deg, #000, transparent);
+         width: 33.33%;
+         pointer-events: none;
+}
+ .gofreight_image-slider:after {
+	 right: 0;
+	 background: linear-gradient(-90deg, #000, transparent);
+         width: 33.33%;
+         pointer-events: none;
+}
+ .items {
+	 position: relative;
+	 width: 100%;
+	 overflow: hidden;
+	 white-space: nowrap;
+	 font-size: 0;
+	 cursor: pointer;
+}
+ .items.active {
+	 cursor: grab;
+}
+ .item {
+	 display: inline-block;
+	 margin-left: 20px;
+	 user-select: none;
+	 width: 100%;
+         height: 100%;
+}
+ .item:first-child{
+    margin-left: 16.15%
+ }
+ .item:last-child {
+	 margin-right: 16.15%;
+}
+ @media screen and (min-width: 500px) {
+	 .item {
+		 width: 33%;
+	}
+}
+ @media screen and (min-width: 800px) {
+	 .item {
+		 width: 25%;
+	}
+}
+ @media screen and (min-width: 1200px) {
+	 .gofreight_image-slider {
+		 margin-left: -20px;
+	}
+	 .item {
+		 width: 20%;
+	}
+}
+.carousel{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.carousel .left-block{
+    flex-basis: 33%;
+    display: flex;
+    flex-direction: column;
+}
+.carousel .carousel-nav{
+    justify-self: flex-end;
+    display: flex;
+    gap: 20px;
+    flex-grow: 1;
+}
+.carousel .right-block{
+    flex-basis: 66%;
+}
+.image-gallery {
+    display: flex;
+    align-items: center;
+    gap: 150px;
+    padding: 60px 0px;
+}
+.image-gallery img{
+	max-width: 200px;
+}
+.image-gallery > div:first-child {
+    margin-left: 75px;
+}
+.two-block-section .left-block{
+    background-color: #1B1D1F;
+    padding: 60px;
+}
+.right-block img{
+	width: 100%;	
+}
+/* Basic navbar styles */
+.navbar {
+  position: fixed;
+  background-color: #000; /* Set the background color of the navbar */
+  color: #fff; /* Set text color */
+  padding: 10px 0; /* Add some padding for spacing */
+}
+
+.navbar-container {
+  max-width: 1200px; /* Set a maximum width for the container */
+  margin: 0 auto; /* Center the container horizontally */
+  display: flex;
+  justify-content: space-between; /* Space out the logo and navigation items */
+  align-items: center; /* Vertically center items */
+}
+
+.logo {
+  color: #fff; /* Text color for the logo */
+  text-decoration: none; /* Remove underline from the logo */
+  font-size: 24px; /* Set font size for the logo */
+  font-weight: bold; /* Optionally, make the logo bold */
+}
+
+/* Style for navigation links */
+.nav-menu {
+  list-style: none; /* Remove bullets from the list */
+  padding: 0; /* Remove default padding */
+  display: flex;
+}
+
+.nav-menu li {
+  margin-right: 20px; /* Add some spacing between navigation items */
+}
+
+.nav-menu li:last-child {
+  margin-right: 0; /* Remove margin from the last item */
+}
+
+.nav-menu a {
+  color: #fff; /* Text color for links */
+  text-decoration: none; /* Remove underlines from links */
+  font-weight: bold; /* Optionally, make the links bold */
+}
+
+/* Style for navigation links on hover */
+.nav-menu a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <nav class="navbar">
+          <div class="navbar-container">
+            <a href="#" class="logo"><span class="primary-text-gradient focus">Growth</span></a>
+            <ul class="nav-menu">
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#why-choose-us">Why Choose Us</a></li>
+              <li><a href="#get-started">Get Started</a></li>
+              <li><a href="#contact-us">Contact Us</a></li>
+            </ul>
+          </div>
+        </nav>
+        
+        <div class="container">
+            <div class="hero-section-container">
+            <section class="hero-section">
+            <section class="section-inner">
+            <h1 class="typography-white">
+              Real-time insights and data analysis tools to help you make informed decisions and drive business <span class="primary-text-gradient focus">Growth</span><br>
+                    </h1>
+                    <p>        
+                        <button class="md solid"><a href="/home">Login / Signup</a> </button>
+                    </p></section>
+            </section>
+             </div>
+            <section>
+            <div class="section-row">
+            <div class="section-inner">
+            <h2 class="section-header typography-white">
+                    Skyrocket Your Business Growth With an <span class="focus primary-text-gradient">All-in-One Software</span><br>
+            </h2>
+            </div>
+            </div>
+            <div class="section-row">
+            </div>
+            </S>
+            <div class="section">
+            <div class="section-inner">
+            <div class="section-row">
+            <h2 style="text-align: center;" class="section-header typography-white">
+                    Explore our wide range of products<br>
+                </h2>
+                <br><br><br>
+            </div>
+            </div>
+            <div class="section-row">
+            <div class="section-inner">
+            <div class="carousel typography-white">
+            <div class="left-block">
+              <span class="focus primary-text-gradient"><h3>Dashboard</h3></span>
+            <h5>Executive dashboard identifies opportunities and weaknesses for you to make real-time decisions</h5>
+            </div>
+            <div class="right-block">
+              <img src="/static/assets/img/image/ceo-dash.png" alt="Description of the image">
+                         </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="section">
+            <div class="section-inner">
+            <div class="section-row">
+            <h2 class="section-header typography-white">
+                     Trusted by over <span class="focus primary-text-gradient">1000+</span> SMB and Enterprise-level Freight Forwarders Worldwide<br>
+                </h2>
+            </div>
+            </div>
+            </div>
+            <div class="section">
+            <div class="section-inner">
+            <h2 class="section-header typography-white">
+                         <span class="focus primary-text-gradient">Highly Rated</span> on Leading Software Review Platforms<br>
+                    </h2>
+            </div>
+            </div>
+            <div class="section">
+            <div class="section-inner two-block-section">
+            <div class="left-block">
+            <h2 class="section-header typography-white">
+                     Transform your business in <span class="focus primary-text-gradient">7 days</span> with support<br>
+                </h2>
+            <p class="typography-white">
+                    Growth emphasizes the importance of customer support and user-friendliness to maximize our customers’ work efficiency. Our support team will guide you from the initial launch to ongoing help and training.
+                </p>
+            </div>
+            <div class="right-block">
+                    <img src="/static/assets/img/image/profile.png">
+                </div>
+            </div>
+            </div>
+            <div class="last-section">
+            <div class="section-inner">
+            <h1 class="typography-white">
+                     Ready to experience shipment transparency like never before?<br>
+                </h1>
+            </div>
+            </div>
+            </div>
+            <div class="footer-container">
+              <div class="footer-form">
+                <h5>Sign up for our newsletter!</h5>
+                <p>Weekly inspirations that will help you discover new opportunities and accelerate business growth.</p>
+                <formset>
+                  <input placeholder="Enter your email address">
+                  <button class="md solid">Subscribe</button>
+                </formset>
+              </div>
+              <div class="top-footer">
+                <div class="footer-block">
+                  <p>Company</p>
+                  <ul>
+                    <li>Why Us</li>
+                    <li>Growth Team</li>
+                    <li>Referral Program</li>
+                    <li>Contact US</li>
+                  </ul>
+                </div>
+                <div class="footer-block">
+                  <p>Solutions</p>
+                  <ul>
+                    <li>Integrated Accounting</li>
+                    <li>Managed Business</li>
+                    <li>Productive Workflow</li>
+                    <li>Switch to Growth</li>
+                  </ul>
+                </div>
+                <div class="footer-block">
+                  <p>Resources</p>
+                  <ul>
+                    <li>Blog</li>
+                    <li>Glossary</li>
+                  </ul>
+                </div>
+              </div>
+              <hr class="footer-divider">
+              <footer id="colophon" class="site-footer">
+            
+                <div class="language-selector">
+                  English
+                </div>
+                <div class="site-info">
+                 Copyright © 2023 Growth Technology Corp. All rights reserved. 
+                </div>
+              </footer>
+            </div>
+        
+        <script src="" async defer></script>
+    </body>
+</html>

@@ -1,0 +1,100 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Attach file {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+    /* Custom CSS for centering and white box */
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .white-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+    <h1 style="text-align: center;">Attach the file</h1>
+</div>
+
+<form id="uploadForm" enctype="multipart/form-data">
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-4">
+                
+            </div>
+            <div class="col-md-4">
+                <h3 style="text-align: center;">Upload a File</h3>
+                <div class="white-box">
+                    <label for="file_upload">Select a File: (only pdf documents allowed)</label>
+                    <input type="file" id="file_upload" name="file" accept=".pdf" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button onclick="uploadFile()" type="submit" class="btn btn-primary">Upload File</button>
+        </div>
+    </div>
+
+</form>
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
+<script>
+import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
+var firebaseConfig = {
+    apiKey: "AIzaSyDE56vuORvLpyQuPihhqbwJxzZzvEDTkW0",
+    authDomain: "ceo-dash.firebaseapp.com",
+    projectId: "ceo-dash",
+    storageBucket: "ceo-dash.appspot.com",
+    messagingSenderId: "120328714231",
+    appId: "1:120328714231:web:0e0af15caae39c80b820f2",
+    measurementId: "G-G6V3CC7VTR"
+};
+
+
+firebase.initializeApp(firebaseConfig);
+
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+function uploadFile() {
+  const fileInput = document.getElementById("file_upload");
+  const file = fileInput.files[0]; // Retrieve the selected file
+
+  if (file) {
+    // 'file' is now the selected file, and you can proceed to upload it
+    uploadBytes(storageRef, file)
+      .then((snapshot) => {
+        console.log('Uploaded a file!');
+      })
+      .catch((error) => {
+        console.error('Error uploading file: ', error);
+      });
+  } else {
+    console.error('No file selected.');
+  }}
+</script>
+{% endblock javascripts %}

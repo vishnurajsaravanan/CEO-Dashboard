@@ -1,0 +1,96 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} operational metrics {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    /* Custom CSS for centering and white box */
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .white-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+    <h1 style="text-align: center;">Operational Metrics</h1>
+</div>
+
+
+<form action="/operational_metrics" method="post">
+    
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="total_production_output">Total Production Output ($):</label>
+                    <input type="number" class="form-control" id="total_production_output" name="total_production_output" step="0.01" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="supplier_performance">Supplier Performance (%):</label>
+                    <input type="number" class="form-control" id="supplier_performance" name="supplier_performance" step="0.01" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="downtime_percentage">Downtime Percentage (%):</label>
+                    <input type="number" class="form-control" id="downtime_percentage" name="downtime_percentage" step="0.01" required>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <div class="row">
+        
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary" type="submit" onclick="return confirm('Are you sure you want submit?');">Submit Metrics</button>
+            </div>
+    </div>
+</form>
+<div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+    <strong>Success!</strong> Your metrics have been submitted successfully.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    // Add this code to your JavaScript block
+document.getElementById("myForm").addEventListener("submit", function (event) {
+    // Prevent the form from submitting normally
+
+    // You can add your form submission logic here
+    // For demonstration purposes, we'll just show the success alert
+    showSuccessAlert();
+
+});
+
+function showSuccessAlert() {
+    var successAlert = document.getElementById("successAlert");
+    successAlert.style.display = "block";
+}
+
+</script>
+{% endblock javascripts %}

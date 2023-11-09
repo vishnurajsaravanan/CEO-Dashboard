@@ -1,0 +1,126 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Profile {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="container-fluid px-2 px-md-4">
+      <div class="page-header min-height-300 border-radius-xl mt-4" 
+           style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+        <span class="mask  bg-gradient-primary  opacity-6"></span>
+      </div>
+      <div class="card card-body mx-3 mx-md-4 mt-n6">
+        <div class="row gx-4 mb-2">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img src="/static/assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          
+
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                {{ current_user.username }}
+              </h5>
+              <p class="mb-0 font-weight-normal text-sm">
+                {{ current_user.role }}
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+            
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-xl-6">
+              <div class="card card-plain h-100">
+                <div class="card-header pb-0 p-3">
+                  <div class="row">
+                    <div class="col-md-8 d-flex align-items-center">
+                      <h6 class="mb-0">Profile Information</h6>
+                    </div>
+                    <div class="col-md-4 text-end">
+                      <a href="javascript:;">
+                        <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"><button id="editButton">Edit</button></i>
+                        
+
+          
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body p-3">
+                  <hr class="horizontal gray-light my-4">
+                  <ul class="list-group">
+                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Name:</strong> &nbsp; {{ current_user.username }}</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; {{ current_user.phone }}</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{ current_user.email }}</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Department:</strong> &nbsp; {{current_user.department }}</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; Coimbatore</li>
+                  </ul>
+          <!-- Edit form (initially hidden) -->
+          <form id="editForm" style="display: none;">
+            <label for="newUsername">Name:</label>
+            <input type="text" id="name" name="newUsername"><br>
+    
+            <label for="newEmail">New Phno:</label>
+            <input type="number" id="phno" name="newEmail"><br>
+    
+            <button type="submit">Save Changes</button>
+        </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-6">
+              <div class="card card-plain h-100">
+                <div class="card-header pb-0 p-2">
+                  <h6 class="mb-0">Conversations</h6>
+                </div>
+                <div class="card-body p-3">
+                  <ul class="list-group">
+                    {% for j in data %}
+                    {% if current_user.username != j.username  %}
+                    <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 pt-0">
+                      <div class="d-flex align-items-start flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{ j.username}}</h6>
+                        <p class="mb-0 text-xs">{{ j.role }}</p>
+                      </div>
+                      <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="/messages">Reply</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include 'includes/footer.html' %}
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+  // Edit button click event
+  document.getElementById("editButton").addEventListener("click", function() {
+      // Hide the edit button
+      this.style.display = "none";
+
+      // Show the edit form
+      document.getElementById("editForm").style.display = "block";
+
+      // Populate form fields with current data
+      document.getElementById("newUsername").value = document.getElementById("username").textContent;
+      document.getElementById("newEmail").value = document.getElementById("email").textContent;
+  });
+</script>
+{% endblock javascripts %}

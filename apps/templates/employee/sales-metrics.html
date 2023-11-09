@@ -1,0 +1,120 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} financial {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    /* Custom CSS for centering and white box */
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .white-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+            <h1 style="text-align: center;">Sales Data</h1>
+        
+</div>
+
+<form action="/calculate_sales" method="post">
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="sales_revenue">Sales revenue:</label>
+                    <input type="number" class="form-control" id="sales_revenue" name="sales_revenue" step="0.01" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="conversion">No. of Conversion:</label>
+                    <input type="number" class="form-control" id="conversion" name="conversion" step="1" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="acquisition">Customer acquisition cost (CAC):</label>
+                    <input type="number" class="form-control" id="acquisition" name="acquisition" step="0.01" required>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="lifetime">Customer lifetime value (CLV):</label>
+                    <input type="number" class="form-control" id="lifetime" name="lifetime" step="0.01" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="churn">Churn rate (%):</label>
+                    <input type="number" class="form-control" id="churn" name="churn" step="0.01" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="white-box">
+                    <label for="s_roi">Return on Investment (ROI):</label>
+                    <input type="number" class="form-control" id="s_roi" name="s_roi" step="0.01" required>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary" type="submit" onclick="return confirm('Are you sure you want submit?');">Submit Metrics</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+    <strong>Success!</strong> Your metrics have been submitted successfully.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    // Add this code to your JavaScript block
+document.getElementById("myForm").addEventListener("submit", function (event) {
+    // Prevent the form from submitting normally
+
+    // You can add your form submission logic here
+    // For demonstration purposes, we'll just show the success alert
+    showSuccessAlert();
+
+});
+
+function showSuccessAlert() {
+    var successAlert = document.getElementById("successAlert");
+    successAlert.style.display = "block";
+}
+
+</script>
+{% endblock javascripts %}

@@ -1,0 +1,136 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Attach file {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+    /* Custom CSS for centering and white box */
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .white-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .text-field {
+    border: 1px solid #312c2c; /* Add a border with a light gray color */
+    padding: 5px; /* Add some padding to improve appearance */
+    }
+
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+    <h1 style="text-align: center;">Allocate Tasks</h1>
+</div>
+
+<form action="/create_tasks" method="post" id="myForm">
+    <div class="container-fluid py-4">
+        <div class="row">
+            
+            <div class="col-md-6">
+                <div class="white-box">
+                    <div class="col-md-12 text-center">
+                    <h4>Select user:</h4>
+                    <select id="user_select" name="user">
+                            <option value="" disabled selected>Select user</option>
+                            {% for i in data %}
+                            {% if current_user.username != i.username%}
+                            <option value="{{i.username}}">{{i.username}}</option>
+                            {% endif %}
+                            {% endfor %}
+                    </select>
+                <br><br>
+                    <h4>Task:</h4>
+                    <input type="text" class="form-control" id="tasks" name="tasks" required>
+                    <br><br>
+                    <!-- <div class="col-md-12 text-center"> -->
+                        <button class="btn btn-primary" type="submit" onclick="return confirm('Are you sure you want submit?');">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="white-box">
+                  <form action="/create_tasks" method="get" >
+                      <table>
+                          <tr style="padding-left: 20px;">
+                              
+                              <th>Username</th>
+                              <th>Task</th>
+                              <th>Delete Entry?</th>
+                          </tr>
+                          {% for j in task %}
+                          <tr style="padding-left: 20px;">
+                             
+                              <td>{{ j.username }} </td>
+                              <td>{{ j.task }} </td>
+                              <td style="padding-left: 10px;">
+                                <button id="deleteButton" class="btn btn-danger" onclick="confirmDelete('{{ j.id }}')">Delete</button>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                      </table>
+                  </form>
+              </div>
+      </div>
+        </div>
+    </div>
+
+    
+</form>
+<div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+    <strong>Success!</strong> Task have been submitted successfully.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    document.getElementById("myForm").addEventListener("submit", function (event) {
+    // Prevent the form from submitting normally
+
+    // You can add your form submission logic here
+    // For demonstration purposes, we'll just show the success alert
+    showSuccessAlert();
+
+});
+
+function showSuccessAlert() {
+    var successAlert = document.getElementById("successAlert");
+    successAlert.style.display = "block";
+}
+
+function confirmDelete(id) {
+        if (confirm("Are you sure you want to delete this entry?")) {
+            // Send a POST request to the Flask route to delete the entry
+            fetch(`/task_delete/${id}`, {
+                method: 'POST',
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Reload the page or update the UI as needed
+                    window.location.reload(); // Reload the page for example
+                } else {
+                    alert("Failed to delete the entry.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    }
+</script>
+{% endblock javascripts %}
