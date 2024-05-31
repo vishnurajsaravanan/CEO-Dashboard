@@ -290,8 +290,8 @@ def allocation_tasks():
 @blueprint.route('/send_email', methods=['POST'])
 def send_email():
     # Email configuration
-    sender_email = 'vishnubuddie02@gmail.com'
-    sender_password = 'moszomgzrzyzzrrx'
+    sender_email = 'MAIL_ID'
+    sender_password = 'PASSSWORD'
     recipient_email = request.form.get('recipient_email')
     subject = request.form.get('subject')
     message = request.form.get('message_body')
